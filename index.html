@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stylish Name Generator</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;padding:20px;
+ background:#080808;color:white;
+ font-family:Arial,sans-serif;
+}
+.container{
+ max-width:500px;margin:auto;
+ background:#111;border:1px solid #ff2020;
+ border-radius:18px;padding:20px;
+ box-shadow:0 0 20px #ff202044;
+}
+h1{text-align:center;color:#ff3030}
+p{text-align:center;color:#aaa}
+input{
+ width:100%;padding:15px;
+ background:#080808;color:white;
+ border:2px solid red;border-radius:10px;
+ font-size:17px;outline:none;
+}
+button{
+ border:0;border-radius:9px;
+ padding:12px;color:white;
+ background:#ed1010;font-weight:bold;
+ cursor:pointer;
+}
+.generate{width:100%;margin-top:12px;font-size:17px}
+.result{
+ display:flex;align-items:center;
+ justify-content:space-between;
+ gap:8px;padding:12px;margin-top:10px;
+ background:#080808;border:1px solid #333;
+ border-radius:9px;overflow-wrap:anywhere;
+}
+.name{flex:1;font-size:15px}
+.copy{flex-shrink:0}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>👑 Stylish Name Generator</h1>
+<p>Create Your Gaming Name</p>
+
+<input id="name" placeholder="Enter Your Name...">
+<button class="generate" onclick="generate()">✨ Generate Name</button>
+
+<h3>⭐ Stylish Results</h3>
+<div id="results"></div>
+</div>
+
+<script>
+function generate(){
+ let name=document.getElementById("name").value.trim();
+ if(!name){
+  alert("Please enter your name!");
+  return;
+ }
+
+ let styles=[
+  "꧁༒"+name+"༒꧂",
+  "亗 "+name+" 亗",
+  "『"+name+"』",
+  "★彡"+name+"彡★",
+  "♛ "+name+" ♛",
+  "ツ"+name+"ツ",
+  "么"+name+"么",
+  "『ᴾᴿᴼ』"+name,
+  "乂"+name+"乂",
+  "꧁"+name+"꧂"
+ ];
+
+ let output=document.getElementById("results");
+ output.innerHTML="";
+
+ styles.forEach(style=>{
+  let row=document.createElement("div");
+  row.className="result";
+
+  let text=document.createElement("span");
+  text.className="name";
+  text.textContent=style;
+
+  let btn=document.createElement("button");
+  btn.className="copy";
+  btn.textContent="📋 Copy";
+  btn.onclick=()=>{
+   if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(style)
+    .then(()=>alert("Copied!"));
+   }else{
+    let area=document.createElement("textarea");
+    area.value=style;
+    document.body.appendChild(area);
+    area.select();
+    document.execCommand("copy");
+    area.remove();
+    alert("Copied!");
+   }
+  };
+
+  row.append(text,btn);
+  output.appendChild(row);
+ });
+}
+</script>
+</body>
+</html>
